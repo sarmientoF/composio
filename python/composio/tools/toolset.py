@@ -102,7 +102,6 @@ _IS_CI: t.Optional[bool] = None
 
 
 class IntegrationParams(te.TypedDict):
-
     integration_id: str
     auth_scheme: str
     expected_params: t.List[ExpectedFieldInput]
@@ -245,7 +244,6 @@ class VersionLock:
 
 
 class ProcessorHelper(WithLogger):
-
     __processors: ProcessorsType
     __metadata: MetadataType
 
@@ -388,7 +386,6 @@ class ProcessorHelper(WithLogger):
 
 
 class FileIOHelper(WithLogger):
-
     def __init__(self, outdir: t.Optional[Path] = None) -> None:
         super().__init__()
         self.outdir = outdir or LOCAL_CACHE_DIRECTORY / LOCAL_OUTPUT_FILE_DIRECTORY_NAME
@@ -456,7 +453,6 @@ class FileIOHelper(WithLogger):
 
 
 class SchemaHelper(WithLogger):
-
     def __init__(self, client: t.Callable[[], Composio]):
         super().__init__()
         self._client = client
@@ -790,7 +786,6 @@ class SchemaHelper(WithLogger):
 
 
 class CustomAuthHelper(WithLogger):
-
     def __init__(self) -> None:
         super().__init__()
         self._custom_auth: t.Dict[App, CustomAuthObject] = {}
@@ -871,7 +866,6 @@ class CustomAuthHelper(WithLogger):
 
 
 class _GetMixin(WithLogger):
-
     client: Composio
     entity_id: str
     get_action_schemas: t.Callable
@@ -1965,6 +1959,7 @@ class ComposioToolSet(_IntegrationMixin):
         endpoint: str,
         method: str,
         *,
+        data: t.Optional[t.Any] = None,
         body: t.Optional[t.Dict] = None,
         parameters: t.Optional[t.List[CustomAuthParameter]] = None,
         connection_id: t.Optional[str] = None,
@@ -1977,6 +1972,7 @@ class ComposioToolSet(_IntegrationMixin):
         endpoint: str,
         method: str,
         *,
+        data: t.Optional[t.Any] = None,
         body: t.Optional[t.Dict] = None,
         parameters: t.Optional[t.List[CustomAuthParameter]] = None,
         app: t.Optional[AppType] = None,
@@ -1988,6 +1984,7 @@ class ComposioToolSet(_IntegrationMixin):
         endpoint: str,
         method: str,
         *,
+        data: t.Optional[t.Any] = None,
         body: t.Optional[t.Dict] = None,
         parameters: t.Optional[t.List[CustomAuthParameter]] = None,
         connection_id: t.Optional[str] = None,
@@ -2021,6 +2018,7 @@ class ComposioToolSet(_IntegrationMixin):
         )
         response = self.client.actions.request(
             connection_id=connection_id,
+            data=data,
             body=body,
             method=method,
             endpoint=endpoint,
